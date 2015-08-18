@@ -1,11 +1,10 @@
-%define     realname  Apache-Htgroup
+%global     realname  Apache-Htgroup
 
 Name:           perl-%{realname}
 Version:        1.23
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Manage Apache authentication group files
 License:        GPLv2+ or Artistic
-Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Apache-Htgroup/
 Source0:        http://search.cpan.org/CPAN/authors/id/R/RB/RBOW/%{realname}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -24,25 +23,26 @@ Manage Apache htgroup files
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot}
 
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+find %{buildroot} -type f -name .packlist -exec rm -f {} \;
+find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%defattr(-,root,root,-)
-%doc LICENSE README
+%doc README
+%license LICENSE
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Aug 18 2015 Steven Hadfield <hadfieldster@gmail.com> 1.23-3
+- RPM spec cleanup
+
 * Fri Jul 6 2012 Steven Hadfield <StevenHadfield@letu.edu> 1.23-2
 - RPM spec fixies
 

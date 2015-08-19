@@ -7,7 +7,6 @@ Summary:        Manage Apache authentication group files
 License:        GPLv2+ or Artistic
 URL:            http://search.cpan.org/dist/Apache-Htgroup/
 Source0:        http://search.cpan.org/CPAN/authors/id/R/RB/RBOW/%{realname}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  perl(ExtUtils::MakeMaker)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
